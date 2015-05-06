@@ -973,7 +973,7 @@ class Chef
       end
     end
 
-    def self.provides(name, *args, &block)
+    def self.provides(name, opts={}, &block)
       result = super
       Chef::DSL::Resources.add_resource_dsl(name)
       result
@@ -1162,6 +1162,12 @@ class Chef
       else
         deprecated_constants[class_name.to_sym] = resource_class
       end
+    end
+
+    protected
+
+    def self.provides_priority_map
+      Chef::Platform::ResourcePriorityMap.instance
     end
 
     private
